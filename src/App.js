@@ -1,11 +1,13 @@
 import React from 'react';
 import {Buscador} from './componentes/Buscador';
+import {Resultado} from './componentes/Resultado';
 //import './App.css';
 
 class App extends React.Component{
 
    state = {
-     term: ''
+     term: '',
+     img: []
    }
 
   queryApi = () => {
@@ -13,7 +15,7 @@ class App extends React.Component{
     const url = `https://pixabay.com/api/?key=1732750-d45b5378879d1e877cd1d35a6&q=${term}`;
     fetch(url)
     .then(answer => answer.json())
-    .then(answer => console.log(answer.hits))
+    .then(answer => this.setState({img: answer.hits}))
 
   }
 
@@ -30,7 +32,9 @@ render() {
         <Buscador
         dateSearch={this.dateSearch}/>
       </div>
-      {this.state.term}
+      <Resultado 
+      img={this.state.img}
+      />
     </div>
       
     
